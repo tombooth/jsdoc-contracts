@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var cli = require('cli'),
+    contracts = require('../');
+
+cli.main(function(args, options) {
+
+   contracts.parse(args[0], function(out) {
+      console.log(out);
+   });
+
+});
