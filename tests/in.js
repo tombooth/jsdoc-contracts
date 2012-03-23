@@ -8,6 +8,10 @@
    }
    /* blah */
 
+   /**
+    * @type {Number}
+    */
+   inc.prototype.foo = 0;
 
    /**
     * JSDoc comment

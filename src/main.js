@@ -11,7 +11,7 @@ function parse(path, fn) {
       if (node.name == 'defun' || node.name == 'function') {
          if (node.start.line < cursor) { cursor = _cursor; }
 
-         var jsdoc_match = /\/\*\*([^\/]+)\*\//.exec(lines.slice(cursor, node.start.line).join('')),
+         var jsdoc_match = /\/\*\*([^\/]+)\*\/[\s]*$/.exec(lines.slice(cursor, node.start.line).join('')),
              jsdoc = (jsdoc_match) ? jsdoc_match[1] : null,
              attrib_regex = /@([a-zA-Z0-9]+)([^@\*]*)/g,
              type_regex = /^\{([A-Za-z0-9]+)\}/,
