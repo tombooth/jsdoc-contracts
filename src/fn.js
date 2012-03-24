@@ -29,8 +29,7 @@ Fn.prototype.out = function(s) {
    console.log('body', body);*/
 
    if (this.pre && this.pre.length > 0) {
-      predicates = this.pre.map(function(attr) { return attr.predicate; });
-      statements = predicates.map(function(p) { return 'if(' + p + '){throw new Error();}' }).join('else ');
+      statements = this.pre.map(function(attr) { return 'if(' + attr.predicate + '){throw new Error("' + attr.message + '");}' }).join('else ');
 
       //console.log('pre', statements);
 
@@ -38,8 +37,7 @@ Fn.prototype.out = function(s) {
    }
 
    if (this.post && this.post.length > 0) {
-      predicates = this.post.map(function(attr) { return attr.predicate.replace(/##out##/g, return_var); });
-      statements = predicates.map(function(p) { return 'if(' + p + '){throw new Error();}' }).join('else ');
+      statements = this.post.map(function(attr) { return 'if(' + attr.predicate.replace(/##out##/g, return_var) + '){throw new Error("' + attr.message.replace(/##out##/g, return_var) + '");}' }).join('else ');
 
       //console.log('post', statements);
 

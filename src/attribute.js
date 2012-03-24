@@ -1,9 +1,10 @@
 
 
-function Attribute(type, predicate) {
+function Attribute(type, predicate, message) {
 
    this.type = type;
    this.predicate = predicate;
+   this.message = message;
 
 }
 
@@ -35,7 +36,7 @@ Attribute.parse = function(jsdoc) {
    var attribute = null,
        predicate = '',
        match, attrib_type, attrib_body,
-       arg_match, return_match, type_match, optional, arg;
+       arg_match, return_match, type_match, optional, arg, message;
 
    attrib_regex.lastIndex = lastIndicies[jsdoc] || 0;
 
@@ -60,21 +61,24 @@ Attribute.parse = function(jsdoc) {
                }
 
                predicate += '!(' + Attribute.type_predicates[attrib_var_type].replace(/##argument##/g, arg) + ')';
+               message = 'Type check failed on ' + arg + '. Expected ' + attrib_var_type;
             }
             break;
          case 'return':
          case 'returns':
             predicate = '!(' + Attribute.type_predicates[attrib_var_type].replace(/##argument##/g, '##out##') + ')';
+            message = 'Type check failed on return. Expected ' + attrib_var_type;
             break;
          case 'pre':
          case 'post':
             predicate = '!(' + attrib_body + ')';
+            message = match[1].toUpperCase() + ' failed. Expected ' + attrib_body;
             break;
          case 'ignore':
             break;
       }
 
-      attribute = new Attribute(match[1], predicate);
+      attribute = new Attribute(match[1], predicate, message);
    }
 
    lastIndicies[jsdoc] = attrib_regex.lastIndex;
