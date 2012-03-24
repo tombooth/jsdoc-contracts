@@ -5,7 +5,7 @@ var cli = require('cli'),
 
 cli.main(function(args, options) {
 
-   contracts.parse(args[0], function(out) {
+   contracts.parse(args[0], { error_template: 'console.error("##message##");' }, function(out) {
       console.log(out);
    });
 

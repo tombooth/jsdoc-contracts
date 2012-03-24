@@ -15,22 +15,38 @@ function Fn(name, source, pre, post, ignore) {
 }
 
 
+Fn.prototype.error_template = 'throw new Error("##message##");';
+
+
+Fn.prototype.set_error_template = function(error_template) {
+   this.error_template = error_template;
+};
+
 Fn.prototype.out = function(s) { 
    var fn_match = /\{(.*)\}$/.exec(this.source),
        return_regexp = /([^_]?)return([^;\}]*);?/g,
        body = fn_match[1],
        return_var = this._get_return_var(),
        out = '',
+       error_template = this.error_template,
        predicates, statements, wrapped;
 
    if (this.pre && this.pre.length > 0) {
-      statements = this.pre.map(function(attr) { return 'if(' + attr.predicate + '){throw new Error("' + attr.message + '");}' }).join('else ');
+      statements = this.pre.map(function(attr) { 
+                               return 'if(' + attr.predicate + '){' + 
+                                  error_template.replace(/##message##/, attr.message) + '}' 
+                            })
+                           .join('else ');
 
       body = statements + 'else{' + body + '}';
    }
 
    if (this.post && this.post.length > 0) {
-      statements = this.post.map(function(attr) { return 'if(' + attr.predicate.replace(/##out##/g, return_var) + '){throw new Error("' + attr.message.replace(/##out##/g, return_var) + '");}' }).join('else ');
+      statements = this.post.map(function(attr) { 
+                                return 'if(' + attr.predicate.replace(/##out##/g, return_var) + '){' + 
+                                   error_template.replace(/##message##/, attr.message.replace(/##out##/g, attr.return_var)) + '}' 
+                             })
+                            .join('else ');
 
       while (return_match = return_regexp.exec(body)) {
 
