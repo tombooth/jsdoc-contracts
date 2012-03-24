@@ -5,7 +5,7 @@ Installation
 --------------
 
 ```
-npm install jsdoc-contracts:
+npm install jsdoc-contracts
 ```
 
 
@@ -36,21 +36,21 @@ Would generate:
 ```javascript
 function dec(i, n) {
     if (!(typeof i === "number")) {
-        throw new Error;
+        throw new Error(...);
     } else if (n !== undefined && !(typeof n === "number")) {
-        throw new Error;
+        throw new Error(...);
     } else if (!(i > 0)) {
-        throw new Error;
+        throw new Error(...);
     } else {
         n = n || 1;
         {
             var ___return = i - n;
             if (!(typeof ___return === "number")) {
-                throw new Error;
+                throw new Error(...);
             } else if (!(___return > 0)) {
-                throw new Error;
+                throw new Error(...);
             } else {
-                return ___return;
+                return ___return(...);
             }
         }
     }
