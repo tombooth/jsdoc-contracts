@@ -5,7 +5,7 @@ Installation
 --------------
 
 ```
-$ npm install jsdoc-contracts
+$ npm install -g jsdoc-contracts
 ```
 
 
