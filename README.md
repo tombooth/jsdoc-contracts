@@ -5,7 +5,7 @@ Installation
 --------------
 
 ```
-npm install jsdoc-contracts
+$ npm install jsdoc-contracts
 ```
 
 
@@ -50,7 +50,7 @@ function dec(i, n) {
             } else if (!(___return > 0)) {
                 throw new Error(...);
             } else {
-                return ___return(...);
+                return ___return;
             }
         }
     }
