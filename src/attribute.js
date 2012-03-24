@@ -8,16 +8,6 @@ function Attribute(type, predicate, message) {
 
 }
 
-/*
- 
-var attrib_regex = /@([a-zA-Z0-9]+)([^@\*]*)/g,
-    params = { },
-
-while (match = attrib_regex.exec(jsdoc)) {
-}
-*/
-
-
 
 
 

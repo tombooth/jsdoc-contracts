@@ -12,8 +12,6 @@ function Fn(name, source, pre, post, ignore) {
 
    this.should_wrap = !ignore && ((this.pre && this.pre.length > 0) || 
                                      (this.post && this.post.length > 0));
-
-   //console.log('new function', name, source, pre, post, this.should_wrap);
 }
 
 
@@ -25,21 +23,14 @@ Fn.prototype.out = function(s) {
        out = '',
        predicates, statements, wrapped;
 
-   /*console.log('------------------------\n\nwrapping');
-   console.log('body', body);*/
-
    if (this.pre && this.pre.length > 0) {
       statements = this.pre.map(function(attr) { return 'if(' + attr.predicate + '){throw new Error("' + attr.message + '");}' }).join('else ');
-
-      //console.log('pre', statements);
 
       body = statements + 'else{' + body + '}';
    }
 
    if (this.post && this.post.length > 0) {
       statements = this.post.map(function(attr) { return 'if(' + attr.predicate.replace(/##out##/g, return_var) + '){throw new Error("' + attr.message.replace(/##out##/g, return_var) + '");}' }).join('else ');
-
-      //console.log('post', statements);
 
       while (return_match = return_regexp.exec(body)) {
 
@@ -55,8 +46,6 @@ Fn.prototype.out = function(s) {
    out += this.source.substring(0, fn_match.index + 1);
    out += body;
    out += '}';
-
-   //console.log('\n--------------------------\n\n');
 
    return out;
 }
