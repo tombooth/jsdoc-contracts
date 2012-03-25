@@ -31,6 +31,13 @@ function dec(i, n) {
 }
 ```
 
+To do the transformation execute the following after installing
+
+```
+$ contracts <file>
+$ contracts <file> > out.js
+```
+
 Would generate:
 
 ```javascript
@@ -56,11 +63,4 @@ function dec(i, n) {
     }
 }
 
-```
-
-To do the transformation execute the following after installing
-
-```
-$ contracts <file>
-$ contracts <file> > out.js
 ```
